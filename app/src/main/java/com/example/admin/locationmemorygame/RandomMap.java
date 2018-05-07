@@ -10,13 +10,15 @@ import java.util.Random;
 
 public class RandomMap {
     private int level;
-    private int elements;
-    private ArrayList<Integer> maps;
+    private int count;
+    private int time;
+    private ArrayList<Integer> appointees = new ArrayList<>();
 
     public RandomMap(int level) {
         this.level = level;
-        this.setElememts();
-        this.setMaps();
+        this.setCount(this.level);
+        this.setTime(this.level);
+        this.setAppointees(this.count);
     }
 
     public int getLevel() {
@@ -27,26 +29,39 @@ public class RandomMap {
         this.level = level;
     }
 
-    public ArrayList<Integer> getMaps() {
-        return maps;
+    public int getCount() {
+        return count;
     }
 
-    public int getElements() {
-        return elements;
-    }
-
-    public void setElements(int elements) {
-        this.elements = elements;
-    }
-
-    public void setMaps() {
-        Random random = new Random();
-        int choosenLocation;
-        for (int i = 0; i < level; i++) {
-            do {
-                choosenLocation = random.nextInt(level);
-            } while (this.maps.contains(choosenLocation));
-            this.maps.add(choosenLocation);
+    public void setCount(int level) {
+        if (level <= 5) {
+            count = 16;
+        } else if (5 < level && level <= 10) {
+            count = 20;
         }
+        this.count = count;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int level) {
+        this.time = 1;
+    }
+
+    public ArrayList getAppointees() {
+        return appointees;
+    }
+
+    public void setAppointees(int count) {
+        Random random = new Random();
+        int appointee;
+        do {
+            do {
+                appointee = random.nextInt(count);
+            } while (this.appointees.contains(appointee));
+            this.appointees.add(appointee);
+        } while (this.appointees.size() == count);
     }
 }
